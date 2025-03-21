@@ -14,7 +14,7 @@
 git add .
 git commit -m "test: README.md"
 git format-patch -1 -o patches/
-git apply patches/0001-*.patch
+git apply 0001-*.patch 또는 git apply patches/0001-*.patch
 git commit -m "예약된 커밋"
 git push origin main
 ```
