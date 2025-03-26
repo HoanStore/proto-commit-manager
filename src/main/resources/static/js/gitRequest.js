@@ -1,21 +1,58 @@
 const gitRequest = (function () {
 
+    // 폼을 자동으로 채우는 함수
+    const fillForm = function (testCase) {
+        $("#name").val(testCase.name);
+        $("#email").val(testCase.email);
+        $("#password").val(testCase.password);
+        $("#url").val(testCase.url);
+        $("#file").val(''); // 파일은 자동으로 채울 수 없습니다.
+        $("#message").val(testCase.message);
+        $("#branch").val(testCase.branch);
+    }
+
+    // 버튼 클릭 시 자동으로 폼 채우기
+    const fillTestData = function () {
+        $("#btn_fill_test1").click(function () {
+            const testCase1 = {
+                name: '조근완',
+                email: 'kwjo@mqnic.com',
+                password: 'password123',
+                url: 'https://github.com/HoanStore/proto-commit-manager.git',
+                message: 'Initial commit',
+                branch: 'main'
+            };
+            fillForm(testCase1);
+        });
+
+        $("#btn_fill_test2").click(function () {
+            const testCase2 = {
+                name: 'Jane Smith',
+                email: 'janesmith@example.com',
+                password: 'mypassword456',
+                url: 'https://github.com/janesmith/project',
+                message: 'Bug fix commit',
+                branch: 'develop'
+            };
+            fillForm(testCase2);
+        });
+    }
+
+    // 제출 기능 (폼 제출)
     const register = function () {
         $("#btn_register").click(function () {
-            debugger;
 
-            // if(isValid() === false) {
-            //     return;
-            // }
+            if(isValid() === false) {
+                return;
+            }
 
             const formData = new FormData($("#form")[0]);
 
-            // file list 추가
+            // 파일 목록 추가
             const fileLists = $("#file")[0].files;
             for (let i = 0; i < fileLists.length; i++) {
                 formData.append("fileLists", fileLists[i]);
             }
-
 
             $.ajax({
                 url: '/register',
@@ -31,14 +68,11 @@ const gitRequest = (function () {
                     window.location.href = '/';
                 }
             });
-
-
-        })
+        });
     }
 
-
+    // 유효성 검사
     const isValid = function () {
-
         const title = $("#title").val();
         const businessname = $("#businessname").val();
         const ordercontent = $("#ordercontent").val();
@@ -46,37 +80,27 @@ const gitRequest = (function () {
         const ordercompany = $("#ordercompany").val();
         const regName = $("#reg_name").val();
 
-        if(title == '') {
+        if (title === '') {
             alert("제목을 입력해주세요.");
             return false;
         }
-
-        if(businessname == '') {
+        if (businessname === '') {
             alert("사업명을 입력해주세요.");
             return false;
         }
-
-        if(ordercontent == '') {
+        if (ordercontent === '') {
             alert("사업내용을 입력해주세요.");
             return false;
         }
-
-        if(datepicker == '') {
+        if (datepicker === '') {
             alert("수주시기를 입력해주세요.");
             return false;
         }
-
-        if(ordercompany == '') {
+        if (ordercompany === '') {
             alert("수주기업을 입력해주세요.");
             return false;
         }
-
-        if(regName == '') {
-            alert("작성자명을 입력해주세요.");
-            return false;
-        }
-
-        if(regName == '') {
+        if (regName === '') {
             alert("작성자명을 입력해주세요.");
             return false;
         }
@@ -84,10 +108,13 @@ const gitRequest = (function () {
     }
 
     return {
-        register : register,
+        register: register,
+        fillTestData: fillTestData // fillTestData 함수도 외부로 노출
     }
+
 })();
 
 $(document).ready(function () {
     gitRequest.register();
+    gitRequest.fillTestData(); // 자동 채우기 버튼 기능 추가
 });
