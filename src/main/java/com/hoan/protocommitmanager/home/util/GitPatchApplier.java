@@ -16,7 +16,7 @@ public class GitPatchApplier {
         String USEREMAIL = properties.getProperty("USEREMAIL");
 
         String localPath = "/Users/keunwan/hoan_workspace/commit-store"; // Git 로컬 저장소 경로
-        String patchFile = "/Users/keunwan/hoan_workspace/proto-commit-manager/patches/0001-test-JAVA-patches.patch"; // 패치 파일 경로
+        String patchFile = "/Users/keunwan/hoan_workspace/commit-manager/proto-commit-manager/patches/0001-test-README.md-20250327.patch"; // 패치 파일 경로
 
         try {
             // 1️⃣ Git 사용자 정보 설정
