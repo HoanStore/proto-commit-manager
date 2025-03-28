@@ -1,11 +1,16 @@
 package com.hoan.protocommitmanager.home.util;
 
+import com.hoan.protocommitmanager.home.domain.GitUserDTO;
+import org.springframework.stereotype.Component;
+
 import java.io.*;
 
-public class GitRepositoryManager {
-    public static void main(String[] args) {
+@Component
+public class GitInit {
+
+    public void init(GitUserDTO gitUserDTO) {
         String localPath = "/Users/keunwan/hoan_workspace/commit-store"; // 저장할 로컬 경로
-        String repoUrl = "https://github.com/HoanStore/proto-commit-manager.git"; // 클론할 Git 저장소
+        String repoUrl = gitUserDTO.getUrl();
 
         File repoDir = new File(localPath);
         File gitDir = new File(localPath + "/.git");
@@ -28,7 +33,8 @@ public class GitRepositoryManager {
         }
     }
 
-    private static void runCommand(String... command) throws IOException, InterruptedException {
+
+    private void runCommand(String... command) throws IOException, InterruptedException {
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         processBuilder.redirectErrorStream(true);
         Process process = processBuilder.start();
@@ -40,7 +46,7 @@ public class GitRepositoryManager {
         }
     }
 
-    private static void runCommandInDirectory(String directory, String... command) throws IOException, InterruptedException {
+    private void runCommandInDirectory(String directory, String... command) throws IOException, InterruptedException {
         File dir = new File(directory);
         if (!dir.exists() || !dir.isDirectory()) {
             System.err.println("Error: Specified directory does not exist - " + directory);
@@ -53,7 +59,7 @@ public class GitRepositoryManager {
         printProcessOutput(process);
     }
 
-    private static void printProcessOutput(Process process) throws IOException, InterruptedException {
+    private void printProcessOutput(Process process) throws IOException, InterruptedException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
             String line;
             while ((line = reader.readLine()) != null) {

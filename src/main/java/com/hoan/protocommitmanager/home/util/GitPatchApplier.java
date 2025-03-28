@@ -1,9 +1,51 @@
 package com.hoan.protocommitmanager.home.util;
 
+import com.hoan.protocommitmanager.home.domain.GitUserDTO;
+import org.springframework.stereotype.Component;
+
 import java.io.*;
 import java.util.Properties;
 
+@Component
 public class GitPatchApplier {
+
+    public void patchApply(GitUserDTO gitUserDTO) {
+        Properties properties = loadProperties("/Users/keunwan/hoan_workspace/config.properties"); // 설정 파일 로드
+        if (properties == null) {
+            System.err.println("Error: Failed to load configuration.");
+            return;
+        }
+
+        String USERNAME = gitUserDTO.getName();
+        String PASSWORD = gitUserDTO.getPassword();
+        String USEREMAIL = gitUserDTO.getEmail();
+
+        String localPath = "/Users/keunwan/hoan_workspace/commit-store"; // Git 로컬 저장소 경로
+        String patchFile = "/Users/keunwan/hoan_workspace/commit-manager/proto-commit-manager/patches/0001-chore-git-Ignore.patch"; // 패치 파일 경로
+
+        try {
+            // 1️⃣ Git 사용자 정보 설정
+            runCommandInDirectory(localPath, "git", "config", "--global", "user.name", USERNAME);
+            runCommandInDirectory(localPath, "git", "config", "--global", "user.password", PASSWORD);
+            runCommandInDirectory(localPath, "git", "config", "--global", "user.email", USEREMAIL);
+
+            // 2️⃣ Git 패치 파일 적용
+            runCommandInDirectory(localPath, "git", "apply", patchFile);
+
+            // 3️⃣ 변경 사항 스테이징 (git add .)
+            runCommandInDirectory(localPath, "git", "add", ".");
+
+            // 4️⃣ 변경 사항 커밋
+            runCommandInDirectory(localPath, "git", "commit", "-am", "예약된 커밋");
+
+            // 5️⃣ 변경 사항 푸시
+            runCommandInDirectory(localPath, "git", "push", "origin", "main");
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         Properties properties = loadProperties("/Users/keunwan/hoan_workspace/config.properties"); // 설정 파일 로드
         if (properties == null) {
@@ -16,7 +58,7 @@ public class GitPatchApplier {
         String USEREMAIL = properties.getProperty("USEREMAIL");
 
         String localPath = "/Users/keunwan/hoan_workspace/commit-store"; // Git 로컬 저장소 경로
-        String patchFile = "/Users/keunwan/hoan_workspace/commit-manager/proto-commit-manager/patches/0001-test-README.md-20250327.patch"; // 패치 파일 경로
+        String patchFile = "/Users/keunwan/hoan_workspace/commit-manager/proto-commit-manager/patches/0001-chore-git-Ignore.patch"; // 패치 파일 경로
 
         try {
             // 1️⃣ Git 사용자 정보 설정
