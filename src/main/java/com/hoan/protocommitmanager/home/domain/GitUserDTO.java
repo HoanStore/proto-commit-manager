@@ -20,6 +20,7 @@ public class GitUserDTO {
     private String url;
     private String message;
     private String branch;
+    private String patchFilePath;
 
     private List<MultipartFile> fileLists;
 }

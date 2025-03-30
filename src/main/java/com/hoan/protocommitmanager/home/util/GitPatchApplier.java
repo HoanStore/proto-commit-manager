@@ -9,19 +9,14 @@ import java.util.Properties;
 @Component
 public class GitPatchApplier {
 
-    public void patchApply(GitUserDTO gitUserDTO) {
-        Properties properties = loadProperties("/Users/keunwan/hoan_workspace/config.properties"); // 설정 파일 로드
-        if (properties == null) {
-            System.err.println("Error: Failed to load configuration.");
-            return;
-        }
+    public void patchApply(GitUserDTO gitUserDTO, String paramLocalPath) {
 
         String USERNAME = gitUserDTO.getName();
         String PASSWORD = gitUserDTO.getPassword();
         String USEREMAIL = gitUserDTO.getEmail();
 
-        String localPath = "/Users/keunwan/hoan_workspace/commit-store"; // Git 로컬 저장소 경로
-        String patchFile = "/Users/keunwan/hoan_workspace/commit-manager/proto-commit-manager/patches/0001-chore-git-Ignore.patch"; // 패치 파일 경로
+        String localPath = paramLocalPath; // Git 로컬 저장소 경로
+        String patchFile = gitUserDTO.getPatchFilePath();
 
         try {
             // 1️⃣ Git 사용자 정보 설정
