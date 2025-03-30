@@ -9,7 +9,6 @@ import com.hoan.protocommitmanager.home.domain.GitUserDTO;
 import com.hoan.protocommitmanager.home.util.GitInit;
 import com.hoan.protocommitmanager.home.util.GitPatchApplier;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor

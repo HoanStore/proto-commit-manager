@@ -10,16 +10,25 @@ import java.util.Properties;
 public class GitPatchApplier {
 
     public void patchApply(GitUserDTO gitUserDTO, String paramLocalPath) {
-
-        String USERNAME = gitUserDTO.getName();
-        String PASSWORD = gitUserDTO.getPassword();
-        String USEREMAIL = gitUserDTO.getEmail();
-
-        String localPath = paramLocalPath; // Git 로컬 저장소 경로
+//        String USERNAME = gitUserDTO.getName();
+//        String TOKEN = gitUserDTO.getPassword();  // PAT 사용
+//        String USEREMAIL = gitUserDTO.getEmail();
+        String localPath = paramLocalPath;
         String patchFile = gitUserDTO.getPatchFilePath();
 
+        Properties properties = loadProperties("/Users/keunwan/hoan_workspace/config.properties"); // 설정 파일 로드
+        if (properties == null) {
+            System.err.println("Error: Failed to load configuration.");
+            return;
+        }
+
+        String USERNAME = properties.getProperty("USERNAME");
+        String PASSWORD = properties.getProperty("PASSWORD");
+        String USEREMAIL = properties.getProperty("USEREMAIL");
+
+
         try {
-            // 1️⃣ Git 사용자 정보 설정
+// 1️⃣ Git 사용자 정보 설정
             runCommandInDirectory(localPath, "git", "config", "--global", "user.name", USERNAME);
             runCommandInDirectory(localPath, "git", "config", "--global", "user.password", PASSWORD);
             runCommandInDirectory(localPath, "git", "config", "--global", "user.email", USEREMAIL);
@@ -40,6 +49,9 @@ public class GitPatchApplier {
             e.printStackTrace();
         }
     }
+
+
+
 
     public static void main(String[] args) {
         Properties properties = loadProperties("/Users/keunwan/hoan_workspace/config.properties"); // 설정 파일 로드

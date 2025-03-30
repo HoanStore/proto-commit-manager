@@ -15,7 +15,7 @@ const gitRequest = (function () {
     const fillTestData = function () {
         $("#btn_fill_test1").click(function () {
             const testCase1 = {
-                name: '조근완',
+                name: 'HoanStore',
                 email: 'kwjo@mqnic.com',
                 password: 'password123',
                 url: 'https://github.com/HoanStore/proto-commit-manager.git',
