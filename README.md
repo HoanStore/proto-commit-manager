@@ -31,3 +31,4 @@ git push origin main
 git credential reject https://github.com
 
 예약 커밋됨??
+
