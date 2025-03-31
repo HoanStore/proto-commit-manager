@@ -23,3 +23,6 @@ git push origin main
 ```
 자바로 Git commit 테스트 2025-0327
 ```
+
+
+테스트! PAT을 묻는지 확인
