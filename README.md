@@ -29,3 +29,5 @@ git push origin main
 
 아래 명령어를 쳤을 때, 묻는지 확인 
 git credential reject https://github.com
+
+예약 커밋됨??
