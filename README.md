@@ -26,3 +26,6 @@ git push origin main
 
 
 테스트! PAT을 묻는지 확인
+
+아래 명령어를 쳤을 때, 묻는지 확인 
+git credential reject https://github.com
