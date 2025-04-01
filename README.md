@@ -32,3 +32,5 @@ git credential reject https://github.com
 
 예약 커밋됨??
 
+
+0401 화요일 - 외부에서 커밋되는지 확인
