@@ -3,8 +3,6 @@ package com.hoan.protocommitmanager.home.util;
 import com.hoan.protocommitmanager.home.domain.GitUserDTO;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.springframework.stereotype.Component;
 
