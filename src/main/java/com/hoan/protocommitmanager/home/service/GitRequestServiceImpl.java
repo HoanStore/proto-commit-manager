@@ -6,18 +6,39 @@ import com.hoan.protocommitmanager.common.enums.FileMgmtDetailType;
 import com.hoan.protocommitmanager.common.enums.MgmtTypes;
 import com.hoan.protocommitmanager.common.service.CommonService;
 import com.hoan.protocommitmanager.home.domain.GitUserDTO;
+import com.hoan.protocommitmanager.home.util.GitCleaner;
 import com.hoan.protocommitmanager.home.util.GitInit;
 import com.hoan.protocommitmanager.home.util.GitPatchApplier;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
 
 @RequiredArgsConstructor
 @Service
 public class GitRequestServiceImpl implements GitRequestService {
 
     private final GitInit gitInit;
+    private final GitCleaner gitCleaner;
     private final GitPatchApplier gitPatchApplier;
     private final CommonService commonService;
+
+    @Override
+    public boolean isGitRepo(String localPath) {
+        File gitDir = new File(localPath, ".git");
+        return gitDir.exists() && gitDir.isDirectory();
+    }
+
+    @Override
+    public void gitClean(String localPath) {
+        gitCleaner.cleanGitRepository(localPath);
+    }
+
+    @Override
+    public void gitInit(GitUserDTO gitUserDTO, String localPath) {
+        gitInit.init(gitUserDTO, localPath);
+    }
+
 
     @Override
     public void registerReservationGitCommit(GitUserDTO gitUserDTO) {
