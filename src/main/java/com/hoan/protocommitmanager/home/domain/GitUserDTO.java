@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Builder
@@ -23,4 +25,5 @@ public class GitUserDTO {
     private String patchFilePath;
 
     private List<MultipartFile> fileLists;
+
 }
