@@ -34,3 +34,6 @@ git credential reject https://github.com
 
 
 0401 화요일 - 외부에서 커밋되는지 확인
+
+
+
