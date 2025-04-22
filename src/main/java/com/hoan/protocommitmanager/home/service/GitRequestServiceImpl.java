@@ -8,6 +8,7 @@ import com.hoan.protocommitmanager.common.service.CommonService;
 import com.hoan.protocommitmanager.home.config.GitLocalPathProperties;
 import com.hoan.protocommitmanager.home.domain.GitUserDTO;
 import com.hoan.protocommitmanager.home.util.GitCleaner;
+import com.hoan.protocommitmanager.home.util.GitCredentialApplier;
 import com.hoan.protocommitmanager.home.util.GitInit;
 import com.hoan.protocommitmanager.home.util.GitPatchApplier;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,8 @@ public class GitRequestServiceImpl implements GitRequestService {
 
     private final GitInit gitInit;
     private final GitCleaner gitCleaner;
+
+    private final GitCredentialApplier gitCredentialApplier;
     private final GitPatchApplier gitPatchApplier;
     private final CommonService commonService;
 
@@ -60,6 +63,8 @@ public class GitRequestServiceImpl implements GitRequestService {
         String localPath = gitLocalPathProperties.getPath();
         // 정상적으로 pull 해 오는지까지만 확인
         gitInit.init(gitUserDTO, localPath);
+
+        gitCredentialApplier.configureGitCredentials(gitUserDTO.getName(), gitUserDTO.getPassword());
         gitPatchApplier.patchApply(gitUserDTO,localPath);
 
     }

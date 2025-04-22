@@ -19,7 +19,6 @@ public class GitPatchApplier {
         String localPath = paramLocalPath;
         String patchFile = gitUserDTO.getPatchFilePath();
 
-
         try {
             // 환경 변수 설정: 사용자 이름과 PAT 자동 입력
             System.setProperty("GIT_ASKPASS", "echo");
