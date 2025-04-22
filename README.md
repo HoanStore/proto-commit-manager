@@ -10,13 +10,16 @@
 3. 저희 서비스에 올라온 patch 파일을 바탕으로 매일 한 개씩 커밋이 이루어집니다. 
 ```
 
+- 패치 파일 만들기
 ```
 git add .
 git commit -m "test: README.md"
 git format-patch -1 -o patches/
+```
+
+- 패치 파일 적용
+```
 git apply 0001-*.patch 또는 git apply patches/0001-*.patch
-git commit -m "예약된 커밋"
-git push origin main
 ```
 
 
@@ -30,10 +33,7 @@ git push origin main
 아래 명령어를 쳤을 때, 묻는지 확인 
 git credential reject https://github.com
 
-예약 커밋됨??
 
-
-0401 화요일 - 외부에서 커밋되는지 확인
 
 
 
