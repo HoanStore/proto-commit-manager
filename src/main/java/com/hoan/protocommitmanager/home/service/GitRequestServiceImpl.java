@@ -5,6 +5,7 @@ import com.hoan.protocommitmanager.common.domain.FileVO;
 import com.hoan.protocommitmanager.common.enums.FileMgmtDetailType;
 import com.hoan.protocommitmanager.common.enums.MgmtTypes;
 import com.hoan.protocommitmanager.common.service.CommonService;
+import com.hoan.protocommitmanager.home.config.GitLocalPathProperties;
 import com.hoan.protocommitmanager.home.domain.GitUserDTO;
 import com.hoan.protocommitmanager.home.util.GitCleaner;
 import com.hoan.protocommitmanager.home.util.GitInit;
@@ -17,6 +18,8 @@ import java.io.File;
 @RequiredArgsConstructor
 @Service
 public class GitRequestServiceImpl implements GitRequestService {
+
+    private final GitLocalPathProperties gitLocalPathProperties;
 
     private final GitInit gitInit;
     private final GitCleaner gitCleaner;
@@ -54,7 +57,7 @@ public class GitRequestServiceImpl implements GitRequestService {
         System.out.println("fileDetailVO = " + fileDetailVO);
 
         gitUserDTO.setPatchFilePath(fileDetailVO.getFileSavePath()+"/"+fileDetailVO.getSaveFileNm());
-        String localPath = "/Users/keunwan/hoan_workspace/commit-manager-store/localBranch"; // 저장할 로컬 경로
+        String localPath = gitLocalPathProperties.getPath();
         // 정상적으로 pull 해 오는지까지만 확인
         gitInit.init(gitUserDTO, localPath);
         gitPatchApplier.patchApply(gitUserDTO,localPath);
