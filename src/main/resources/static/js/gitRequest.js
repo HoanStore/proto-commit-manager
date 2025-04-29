@@ -26,15 +26,15 @@ const gitRequest = (function () {
         });
 
         $("#btn_fill_test2").click(function () {
-            const testCase2 = {
-                name: 'Jane Smith',
-                email: 'janesmith@example.com',
-                password: 'mypassword456',
-                url: 'https://github.com/janesmith/project',
-                message: 'Bug fix commit',
-                branch: 'develop'
+            const testCase3 = {
+                name: 'Hoan',
+                email: 'ktm1296@naver.com',
+                password: '1234',
+                url: 'https://github.com/kostamember/commit-manager-test-repo.git',
+                message: 'TEST',
+                branch: 'main'
             };
-            fillForm(testCase2);
+            fillForm(testCase3);
         });
     }
 
